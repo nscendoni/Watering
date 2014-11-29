@@ -1,0 +1,30 @@
+Installation
+
+sudo apt-get install mysql-server
+sudo apt-get install libmysqlclient-dev
+sudo apt-get install python-dev
+sudo apt-get install python-pip
+sudo pip install plotly
+python -c "import plotly; plotly.tools.set_credentials_file(username='nscendoni', api_key='jp1g307jcq', stream_ids=['e837rvjczj', 'vr5zgyrrdk'])"
+sudo pip install webpy
+sudo easy_install web.py
+
+mysqladmin -u root -ppassword create arduino
+
+Usage
+
+# Terreno
+curl http://localhost:8080/rest/1
+
+# Luce
+curl http://localhost:8080/rest/2
+
+# Temperatura?
+curl http://localhost:8080/rest/3
+
+# Accendere luce
+curl http://localhost:8080/rest/10/on
+
+# Accendrere pompa
+curl http://localhost:8080/rest/11/on
+
