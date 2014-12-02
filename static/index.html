@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script>
+var moisture;
+var light;
+var temperature;
+
+function readSensors() {
+
+	$.ajax({url:"/rest/1",success:function(result){
+		result=JSON.parse(result);
+		$("#moisture").html("Moisture: "+result.value);
+	}});
+	$.ajax({url:"/rest/2",success:function(result){
+		result=JSON.parse(result);
+		$("#light").html("Light: "+result.value);
+	}});
+	$.ajax({url:"/temperature/0",success:function(result){
+		result=JSON.parse(result);
+		$("#temperature").html("temperature: "+result.temperature);
+	}});
+}
+
+function light_on() {
+	$.ajax({url:"/rest/10/off",success:function(result){
+		result=JSON.parse(result);
+		$("#light_control").html('<a href="#" onclick="light_off()" id="light_control" class="ui-btn">Off</a>');
+	}});
+}
+function light_off() {
+	$.ajax({url:"/rest/10/on",success:function(result){
+		result=JSON.parse(result);
+		$("#light_control").html('<a href="#" onclick="light_on()" id="light_control" class="ui-btn">On</a>');
+	}});
+}
+
+readSensors();
+</script>
+
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+  <div data-role="header">
+    <h1>Moisture Today</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <h1>Moisture Today</h1>
+    <img id="graph" width="100%" src="/static/images/today_moisture.png"/>
+    <h1>Light Today</h1>
+    <img id="graph" width="100%" src="/static/images/today_light.png"/>
+    <h1>Temperature Today</h1>
+    <img id="graph" width="100%" src="/static/images/today_temperature.png"/>
+    <div id="moisture"></div><div id="light"></div><div id="temperature"></div>
+    <a href="" class="ui-btn" data-transition="slide" onclick="readSensors()">Refresh</a>
+    <a href="#pagetwo" class="ui-btn" data-transition="slide">Weekly reports</a>
+    <div id="light_control">
+      <a href="#" onclick="light_on()" id="light_control" class="ui-btn">Light On</a>
+      <a href="#" onclick="light_off()" id="light_control" class="ui-btn">Light Off</a>
+    </div>
+  </div>
+</div> 
+
+<div data-role="page" id="pagetwo">
+  <div data-role="header">
+    <h1>Light Today</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <h1>Weekly Moisture</h1>
+    <img id="graph" width="100%" src="/static/images/week_moisture.png"/>
+    <h1>WeeklyLight</h1>
+    <img id="graph" width="100%" src="/static/images/week_light.png"/>
+    <h1>WeeklyTemperature</h1>
+    <img id="graph" width="100%" src="/static/images/week_temperature.png"/>
+    <p>Click on the link to go back. <b>Note</b>: fade is default.</p>
+    <a href="#pageone" class="ui-btn" data-transition="slide">Today Reports</a>
+  </div>
+</div> 
+
+</body>
+</html>
+

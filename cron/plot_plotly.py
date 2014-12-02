@@ -38,7 +38,33 @@ data = Data([
         y=s
     )
 ])
-print "saving file" + file_name
-plot_url = py.plot(data, filename=file_name)
 
-py.image.save_as({'data': data}, "/home/pi/Watering/static/images/"+file_name+".png")
+layout = Layout(
+    title=file_name,
+    xaxis=XAxis(
+        title='Date',
+        titlefont=Font(
+            family='Courier New, monospace',
+            size=18,
+            color='#7f7f7f'
+        )
+    ),
+    yaxis=YAxis(
+        title='Value',
+        titlefont=Font(
+            family='Courier New, monospace',
+            size=18,
+            color='#7f7f7f'
+        )
+    )
+)
+fig = Figure(data=data, layout=layout)
+
+
+print "saving file: " + file_name
+#plot_url = py.plot(data, filename=file_name)
+plot_url = py.plot(fig, filename=file_name)
+
+#py.image.save_as({'data': data}, "/home/pi/Watering/static/images/"+file_name+".png")
+py.image.save_as(fig, "/home/pi/Watering/static/images/"+file_name+".png")
+
