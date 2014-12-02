@@ -3,3 +3,4 @@ CREATE TABLE sensors (
   created timestamp default now(),
   sensor tinyint
 );
+create index created_index on sensors(created);
