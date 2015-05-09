@@ -1,8 +1,11 @@
 #!/usr/bin/python
 
 import plotly.plotly as py
+import credentials
 from plotly.graph_objs import *
-py.sign_in("nscendoni", "jp1g307jcq")
+
+
+py.sign_in(credentials.username, credentials.api_key)
 from datetime import datetime
 import sys
 import MySQLdb
@@ -11,10 +14,6 @@ db = MySQLdb.connect(sys.argv[1], sys.argv[2], sys.argv[3],
                     sys.argv[4])
 
 file_name=sys.argv[6]
-
-#db = MySQLdb.connect("localhost", "root", "password",
-#                    "select created,value from sensors where sensor=2 and created>'2014-11-19 08:00:01' and value >100 and '2014-11-19 20:00:01'>created")
-
 
 
 cursor = db.cursor()
